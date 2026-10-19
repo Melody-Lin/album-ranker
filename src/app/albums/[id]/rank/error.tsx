@@ -4,8 +4,7 @@ import Link from "next/link";
 import SiteFooter from "@/components/SiteFooter";
 import SiteHeader from "@/components/SiteHeader";
 
-// Shown when iTunes can't be reached while loading an album. Uses the same
-// blue backdrop and white block as the rest of the app.
+// Shown when iTunes can't be reached while loading an album.
 export default function RankError({ reset }: { reset: () => void }) {
   return (
     <div className="app app--blue">
