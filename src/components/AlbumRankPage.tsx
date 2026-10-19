@@ -4,7 +4,9 @@ import Link from "next/link";
 import { useState } from "react";
 import { useRankingSession } from "@/hooks/useRankingSession";
 import { getComparison, getSortedItems } from "@/utils/mergeSort";
-import { RankComparison, RankComplete, RankWelcome } from "./rank/RankScreens";
+import RankComparison from "./rank/RankComparison";
+import RankComplete from "./rank/RankComplete";
+import RankWelcome from "./rank/RankWelcome";
 import SiteFooter from "./SiteFooter";
 import type { Album, Track } from "@/types";
 
