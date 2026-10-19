@@ -36,11 +36,11 @@
   --color-pink-border: #f2d5de;
   --color-pink-text: #9b5268;
 
-  --shadow-card: 0 1px 3px rgb(53 68 91 / 4%);
-  --shadow-card-hover: 0 8px 20px rgb(53 68 91 / 8%);
-
   --color-backdrop-from: #bcdbfb;
   --color-backdrop-to: #e1eefd;
+
+  --shadow-card: 0 1px 3px rgb(53 68 91 / 4%);
+  --shadow-card-hover: 0 8px 20px rgb(53 68 91 / 8%);
 }
 
 body {
@@ -50,23 +50,19 @@ body {
   font-family: var(--font-sans);
 }
 
-/* App shell */
+/* ------------------------------------------------------------------ */
+/* Page shell: soft blue backdrop with a white block floating in it    */
+/* ------------------------------------------------------------------ */
+
 .app {
   min-height: 100%;
   background: var(--color-page);
 }
 
-/* Page shells. Paste after the `.app` rule so these win. */
-.app--stack,
 .app--blue {
   display: flex;
   flex-direction: column;
-}
-
-/* Homepage: soft blue backdrop with a white block floating in the centre */
-.app--blue {
   min-height: 100vh;
-  /* min-height: 100dvh; */
   padding: clamp(14px, 4vw, 48px) clamp(14px, 5vw, 64px);
   background: linear-gradient(
     135deg,
@@ -78,6 +74,8 @@ body {
 .home-panel {
   width: 100%;
   max-width: 1200px;
+  /* Auto margins centre the block in the free space above the footer. When
+     the content is taller than the window they collapse to 0. */
   margin: auto;
   border-radius: 14px;
   background: var(--color-surface);
@@ -87,76 +85,19 @@ body {
     24px 32px 80px rgb(53 68 91 / 16%);
 }
 
-/* The header now sits on white inside the block */
-.app--blue .site-header {
-  border-radius: 14px 14px 0 0;
-  background: transparent;
-}
-
-/* Keep the landing hero from pushing the footer off-screen. These come after
-   the base `.search-section` rules and are more specific than them. */
-/* .app--blue .search-section {
-  min-height: 62vh;
-} */
-
-/* .app--blue .search-section--results {
-  min-height: auto;
-} */
-
-.app--blue .search-section:not(.search-section--results) {
-  min-height: 0;
-  padding: 64px 24px;
-}
-
-/* Rank welcome screen: centre the Start / Resume buttons. Skip this block if
-   you already added these two rules earlier. */
-.rank-actions--center {
-  justify-content: center;
-  margin-top: 24px;
-}
-
-.rank-actions .rank-start-button {
-  margin-top: 0;
-}
-
-/* "Back to home" wrapper under the results */
-.results-footer {
-  margin-top: 24px;
-}
-
-/* Footer */
-.site-footer {
-  margin-top: auto;
-  border-top: 1px solid var(--color-border);
-}
-
-.site-footer__inner {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 8px 24px;
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 20px 24px;
-  color: var(--color-muted);
-  font-size: 13px;
-}
-
-/* On the blue backdrop the footer sits below the white block */
-.app--blue .site-footer {
-  margin-top: 0;
-  border-top: 0;
-}
-
-.app--blue .site-footer__inner {
-  max-width: 1200px;
-  padding: 24px 4px 0;
-  color: var(--color-text);
-}
+/* ------------------------------------------------------------------ */
+/* Site header and brand                                               */
+/* ------------------------------------------------------------------ */
 
 .site-header {
   border-bottom: 1px solid var(--color-border);
   background: rgb(255 255 255 / 80%);
+}
+
+/* Inside the white block the header sits on white */
+.app--blue .site-header {
+  border-radius: 14px 14px 0 0;
+  background: transparent;
 }
 
 .site-header__inner {
@@ -167,18 +108,6 @@ body {
   max-width: 1280px;
   margin: 0 auto;
   padding: 20px 24px;
-}
-
-.site-content {
-  flex: 1;
-}
-
-.site-footer {
-  padding: 20px;
-  border-top: 1px solid var(--color-border);
-  color: var(--color-muted);
-  font-size: 13px;
-  text-align: center;
 }
 
 .brand {
@@ -211,7 +140,84 @@ body {
   color: var(--color-blue);
 }
 
-/* Search hero */
+/* ------------------------------------------------------------------ */
+/* Site footer                                                         */
+/* ------------------------------------------------------------------ */
+
+.site-footer {
+  margin-top: auto;
+  padding: 20px;
+  border-top: 1px solid var(--color-border);
+  color: var(--color-muted);
+  font-size: 13px;
+  text-align: center;
+}
+
+.site-footer__inner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 24px;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 20px 24px;
+  color: var(--color-muted);
+  font-size: 13px;
+}
+
+/* On the blue backdrop the footer sits below the white block */
+.app--blue .site-footer {
+  margin-top: 0; /* otherwise it competes with the panel for free space */
+  border-top: 0;
+}
+
+.app--blue .site-footer__inner {
+  max-width: 1200px;
+  padding: 24px 4px 0;
+  color: var(--color-text);
+}
+
+/* ------------------------------------------------------------------ */
+/* Buttons (shared)                                                    */
+/* ------------------------------------------------------------------ */
+
+.button {
+  flex-shrink: 0;
+  padding: 12px 20px;
+  border: 0;
+  border-radius: 12px;
+  background: var(--color-blue);
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 150ms ease;
+}
+
+.button:hover:not(:disabled) {
+  background: var(--color-blue-hover);
+}
+
+.button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Low-emphasis button; combine with .button */
+.button--secondary {
+  background: var(--color-blue-soft);
+  color: var(--color-blue-text);
+}
+
+.button--secondary:hover:not(:disabled) {
+  background: var(--color-blue);
+  color: white;
+}
+
+/* ------------------------------------------------------------------ */
+/* Search hero                                                         */
+/* ------------------------------------------------------------------ */
+
 .search-section {
   display: flex;
   align-items: center;
@@ -225,6 +231,13 @@ body {
   min-height: auto;
   padding-top: 56px;
   padding-bottom: 48px;
+}
+
+/* Landing: the block hugs its content instead of filling the window. Adjust
+   the vertical padding to make it taller or shorter. */
+.app--blue .search-section:not(.search-section--results) {
+  min-height: 0;
+  padding: 64px 24px;
 }
 
 .search-hero {
@@ -273,7 +286,16 @@ body {
   line-height: 1.7;
 }
 
-/* Search form */
+.search-hint {
+  margin-top: 20px;
+  color: var(--color-muted-light);
+  font-size: 12px;
+}
+
+/* ------------------------------------------------------------------ */
+/* Search form                                                         */
+/* ------------------------------------------------------------------ */
+
 .search-form {
   display: flex;
   align-items: center;
@@ -339,35 +361,10 @@ body {
   background: var(--color-hover-bg);
 }
 
-.button {
-  flex-shrink: 0;
-  padding: 12px 20px;
-  border: 0;
-  border-radius: 12px;
-  background: var(--color-blue);
-  color: white;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 150ms ease;
-}
+/* ------------------------------------------------------------------ */
+/* Results                                                             */
+/* ------------------------------------------------------------------ */
 
-.button:hover:not(:disabled) {
-  background: var(--color-blue-hover);
-}
-
-.button:disabled {
-  cursor: not-allowed;
-  opacity: 0.6;
-}
-
-.search-hint {
-  margin-top: 20px;
-  color: var(--color-muted-light);
-  font-size: 12px;
-}
-
-/* Results */
 .results-section {
   max-width: 1280px;
   margin: 0 auto;
@@ -385,6 +382,16 @@ body {
   font-size: 14px;
 }
 
+/* "Back to home" wrapper under the results */
+.results-footer {
+  margin-top: 24px;
+}
+
+/* ------------------------------------------------------------------ */
+/* Album grid and card                                                 */
+/* ------------------------------------------------------------------ */
+
+/* Shared with the loading skeleton; column counts are in the media queries */
 .album-grid,
 .skeleton-grid {
   display: grid;
@@ -396,7 +403,9 @@ body {
   margin-top: 24px;
 }
 
+/* The card is a link, so it needs display: block for padding and transforms */
 .album-card {
+  display: block;
   min-width: 0;
   padding: 12px;
   overflow: hidden;
@@ -413,6 +422,11 @@ body {
   transform: translateY(-4px);
   box-shadow: var(--shadow-card-hover);
   background: var(--color-backdrop-to);
+}
+
+.album-card:focus-visible {
+  outline: 3px solid var(--color-blue);
+  outline-offset: 3px;
 }
 
 .album-card__artwork {
@@ -454,6 +468,14 @@ body {
   font-size: 14px;
 }
 
+.album-card__meta {
+  margin-top: 8px;
+  color: var(--color-muted-light);
+  font-size: 12px;
+}
+
+/* Long titles: cut off with an ellipsis, then scroll while the card is
+   hovered or focused. */
 .scrolling-text {
   display: block;
   min-width: 0;
@@ -467,10 +489,6 @@ body {
   max-width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-.scrolling-text__content--long {
-  will-change: auto;
 }
 
 .album-card:hover .scrolling-text__content--long,
@@ -491,23 +509,10 @@ body {
   }
 }
 
-.album-card__meta {
-  margin-top: 8px;
-  color: var(--color-muted-light);
-  font-size: 12px;
-}
+/* ------------------------------------------------------------------ */
+/* Empty, error and loading states                                     */
+/* ------------------------------------------------------------------ */
 
-/* Rank page inside the blue shell: a little tighter inside the white block */
-.app--blue .rank-page {
-  padding: 40px 24px 56px;
-}
-
-.album-card:focus-visible {
-  outline: 3px solid var(--color-blue);
-  outline-offset: 3px;
-}
-
-/* Empty, error, and loading states */
 .status-message {
   margin-top: 24px;
   padding: 48px 24px;
@@ -580,11 +585,29 @@ body {
   }
 }
 
-/* Ranking page */
+/* ------------------------------------------------------------------ */
+/* Rank page: layout, welcome screen and shared header                 */
+/* ------------------------------------------------------------------ */
+
 .rank-page {
   display: flex;
   justify-content: center;
   padding: 56px 24px 80px;
+}
+
+/* A little tighter inside the white block so a full ranking screen fits */
+.app--blue .rank-page {
+  padding: 40px 24px 56px;
+}
+
+.rank-back {
+  color: var(--color-muted);
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.rank-back:hover {
+  color: var(--color-blue);
 }
 
 .rank-welcome {
@@ -642,41 +665,28 @@ body {
   line-height: 1.6;
 }
 
-.rank-start-button {
-  margin-top: 24px;
-  min-width: 190px;
-  padding: 14px 24px;
-}
-
-/* Secondary (low-emphasis) button; combine with .button */
-.button--secondary {
-  background: var(--color-blue-soft);
-  color: var(--color-blue-text);
-}
-
-.button--secondary:hover:not(:disabled) {
-  background: var(--color-blue);
-  color: white;
-}
-
 .rank-actions {
   display: flex;
-  justify-content: center;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 12px;
   margin-top: 40px;
 }
 
+/* Welcome screen: the buttons sit closer to the text above them */
 .rank-actions--center {
-  justify-content: center;
   margin-top: 24px;
 }
 
-.rank-actions .rank-start-button {
-  margin-top: 0;
+.rank-start-button {
+  min-width: 190px;
+  padding: 14px 24px;
 }
 
-/* Comparison progress */
+/* ------------------------------------------------------------------ */
+/* Rank page: comparison screen                                        */
+/* ------------------------------------------------------------------ */
+
 .rank-progress {
   margin-top: 20px;
 }
@@ -701,23 +711,6 @@ body {
   transition: width 200ms ease;
 }
 
-.rank-back {
-  color: var(--color-muted);
-  font-size: 14px;
-  text-decoration: none;
-}
-
-.rank-back:hover {
-  color: var(--color-blue);
-}
-
-.rank-error {
-  margin-top: 16px;
-  color: var(--color-pink-text);
-  font-size: 14px;
-}
-
-/* Head-to-head comparison */
 .rank-comparison {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
@@ -781,7 +774,10 @@ body {
   font-weight: 700;
 }
 
-/* Results track list */
+/* ------------------------------------------------------------------ */
+/* Rank page: finished list                                            */
+/* ------------------------------------------------------------------ */
+
 .rank-track-preview {
   width: 100%;
   max-width: 680px;
@@ -818,8 +814,15 @@ body {
   text-align: right;
 }
 
-/* Responsive: small screens */
+/* ------------------------------------------------------------------ */
+/* Responsive                                                          */
+/* Kept below every component so they win over the base rules. Order   */
+/* matters here: e.g. `.button` padding must come after `.rank-start-  */
+/* button`.                                                            */
+/* ------------------------------------------------------------------ */
+
 @media (max-width: 639px) {
+  /* Search */
   .app--blue .search-section:not(.search-section--results) {
     padding: 48px 20px;
   }
@@ -848,15 +851,13 @@ body {
     padding-left: 14px;
   }
 
+  /* Results */
   .results-section {
     padding-right: 20px;
     padding-left: 20px;
   }
 
-  .results-footer {
-    margin-top: 24px;
-  }
-
+  /* Rank page */
   .rank-page {
     padding: 40px 20px 64px;
   }
@@ -880,7 +881,6 @@ body {
   }
 }
 
-/* Responsive: larger screens */
 @media (min-width: 640px) {
   .album-grid,
   .skeleton-grid {
